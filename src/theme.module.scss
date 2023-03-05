@@ -1,0 +1,100 @@
+// Colors
+$cl-primary: #b93c32;
+$cl-primary-dark-1: #943028;
+$cl-primary-dark-2: #6f241e;
+$cl-primary-light-1: #c05047;
+$cl-primary-light-2: #d58a84;
+$cl-primary-light-3: #e3b1ad;
+$cl-primary-light-4: #f1d8d6;
+
+$cl-background: #f6f5f6;
+$cl-text: #0a0a0a;
+$cl-small-text: #232323;
+$cl-text-shadow: #cecece;
+$cl-text-primary: #37120f;
+$cl-secundary: #00007b;
+
+// Screen Sizes
+$screen-xm: 32rem;
+$screen-sm: 48rem;
+$screen-md: 77rem;
+$screen-lg: 102rem;
+$screen-xl: 130rem;
+
+// Spacings
+$spacing-2: 0.2rem;
+$spacing-4: 0.4rem;
+$spacing-8: 0.8rem;
+$spacing-12: 1.2rem;
+$spacing-16: 1.6rem;
+$spacing-20: 2rem;
+$spacing-24: 2.4rem;
+$spacing-32: 3.2rem;
+$spacing-48: 4.8rem;
+$spacing-64: 6.4rem;
+$spacing-80: 8rem;
+$spacing-96: 9.6rem;
+$spacing-128: 12.8rem;
+
+// Font sizes
+$font-size-10: 1rem;
+$font-size-12: 1.2rem;
+$font-size-14: 1.4rem;
+$font-size-16: 1.6rem;
+$font-size-18: 1.8rem;
+$font-size-20: 2rem;
+$font-size-24: 2.4rem;
+$font-size-30: 3rem;
+$font-size-36: 3.6rem;
+$font-size-44: 4.4rem;
+$font-size-52: 5.2rem;
+$font-size-62: 6.2rem;
+$font-size-74: 7.4rem;
+$font-size-86: 8.6rem;
+$font-size-98: 9.8rem;
+
+$small-width: 480px;
+$medium-width: 768px;
+$large-width: 1024px;
+
+@mixin extra-small {
+  @media (max-width: #{$small-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin small-down {
+  @media (max-width: #{$medium-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin small-only {
+  @media (min-width: #{$small-width}) and (max-width: #{$medium-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin small-up {
+  @media (min-width: #{$small-width}) {
+    @content;
+  }
+}
+
+@mixin medium-only {
+  @media (min-width: #{$medium-width}) and (max-width: #{$large-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin medium-up {
+  @media (min-width: #{$medium-width}) {
+    @content;
+  }
+}
+
+@mixin large {
+  @media (min-width: #{$large-width}) {
+    @content;
+  }
+}

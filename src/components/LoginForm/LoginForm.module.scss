@@ -1,0 +1,52 @@
+@import "../../theme.module.scss";
+
+.label {
+  display: block;
+}
+
+.container {
+  width: 100%;
+  height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-container {
+  background-color: $cl-primary-light-2;
+  border-radius: $spacing-8;
+  padding: $spacing-16;
+
+  width: 32rem;
+  height: 25rem;
+
+  @include medium-up {
+    width: 35rem;
+  }
+}
+
+.input-container {
+  margin: $spacing-12 0;
+}
+
+.label {
+  font-weight: 600;
+  margin: $spacing-4 0;
+}
+
+.login-button {
+  width: 100%;
+  padding: $spacing-8;
+
+  margin: $spacing-32 0 $spacing-8 0;
+}
+
+.login-input {
+  width: 100%;
+  height: $spacing-32;
+
+  user-select: none;
+
+  padding: $spacing-2;
+}
