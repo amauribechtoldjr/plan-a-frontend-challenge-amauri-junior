@@ -15,8 +15,8 @@ const LoginForm = () => {
   const isRejected = state.status === "rejected";
 
   const [formState, setFormState] = useState<SignIn>({
-    username: "planatest",
-    password: "123456",
+    username: "",
+    password: "",
   });
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
