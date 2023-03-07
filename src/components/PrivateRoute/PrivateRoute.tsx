@@ -1,17 +1,18 @@
 import { Navigate } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 
 export type ProtectedRouteProps = {
-  isAuthenticated: boolean;
   authenticationPath: string;
   outlet: JSX.Element;
 };
 
 export default function ProtectedRoute({
-  isAuthenticated,
   authenticationPath,
   outlet,
 }: ProtectedRouteProps) {
-  if (isAuthenticated) {
+  const { state } = useAuth();
+
+  if (state.user.isAuthenticated) {
     return outlet;
   } else {
     return <Navigate to={{ pathname: authenticationPath }} />;

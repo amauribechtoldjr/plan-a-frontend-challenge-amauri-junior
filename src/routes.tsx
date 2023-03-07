@@ -1,35 +1,17 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import LoginForm from "./components/LoginForm/LoginForm";
+import { createBrowserRouter } from "react-router-dom";
+import App from "./App";
 import Movie from "./components/Movie/Movie";
-import ProtectedRoute, {
-  ProtectedRouteProps,
-} from "./components/PrivateRoute/PrivateRoute";
-import { useAuth } from "./hooks/useAuth";
+import ProtectedRoute from "./components/PrivateRoute/PrivateRoute";
 
-const Router = () => {
-  const { state } = useAuth();
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+  },
+  {
+    path: "/last-movie",
+    element: <ProtectedRoute authenticationPath="/" outlet={<Movie />} />,
+  },
+]);
 
-  const defaultProtectedRouteProps: Omit<ProtectedRouteProps, "outlet"> = {
-    isAuthenticated: !!state.user.isAuthenticated,
-    authenticationPath: "/",
-  };
-
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<LoginForm />} />
-        <Route
-          path="/last-movie"
-          element={
-            <ProtectedRoute
-              {...defaultProtectedRouteProps}
-              outlet={<Movie />}
-            />
-          }
-        />
-      </Routes>
-    </BrowserRouter>
-  );
-};
-
-export default Router;
+export default router;

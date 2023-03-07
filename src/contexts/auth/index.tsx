@@ -94,8 +94,6 @@ function AuthContextProvider(props: AuthContextProviderProps) {
     setupRequestTokenAndLogin();
   }, []);
 
-  // if (state.status === "pending") return;
-
   return (
     <AuthContext.Provider value={value}>{props.children}</AuthContext.Provider>
   );

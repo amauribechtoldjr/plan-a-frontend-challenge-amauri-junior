@@ -1,5 +1,11 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import {
+  ChangeEvent,
+  FormEvent,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 import { SignIn } from "../../contexts/auth";
 import { loginUser } from "../../contexts/auth/helpers";
 import { useAuth } from "../../hooks/useAuth";
@@ -11,13 +17,16 @@ const LoginForm = () => {
   const { dispatch: loginDispatch, state } = useAuth();
   const navigate = useNavigate();
 
-  const isPending = state.status === "pending";
-  const isRejected = state.status === "rejected";
-
   const [formState, setFormState] = useState<SignIn>({
     username: "",
     password: "",
   });
+
+  const isPending = state.status === "pending";
+  const isRejected = state.status === "rejected";
+
+  const isValidLoginData =
+    formState.password.length >= 6 && formState.username !== "";
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     setFormState({ ...formState, [e.target.name]: e.target.value });
@@ -26,22 +35,16 @@ const LoginForm = () => {
   function handleSubmit(event: FormEvent) {
     event.preventDefault();
 
-    loginUser(
-      loginDispatch,
-      { ...formState, token: state.user.request_token },
-      LoginService
-    ).then((success) => {
+    loginUser(loginDispatch, { ...formState }, LoginService).then((success) => {
       if (success) {
         navigate("/last-movie");
       }
     });
   }
 
-  useEffect(() => {
-    if (state.user.isAuthenticated) {
-      navigate("/last-movie");
-    }
-  }, [state]);
+  if (state.user.isAuthenticated) {
+    return <Navigate to={{ pathname: "/last-movie" }} />;
+  }
 
   return (
     <div className={s["container"]}>
@@ -52,6 +55,7 @@ const LoginForm = () => {
               Username
             </label>
             <input
+              data-testid="username-input"
               type="text"
               name="username"
               value={formState.username}
@@ -61,9 +65,10 @@ const LoginForm = () => {
           </div>
           <div className={s["input-container"]}>
             <label htmlFor="password" className={s["label"]}>
-              Senha
+              Password
             </label>
             <input
+              data-testid="password-input"
               type="password"
               name="password"
               value={formState.password}
@@ -73,8 +78,10 @@ const LoginForm = () => {
           </div>
           {!isPending && (
             <button
+              data-testid="submit-button"
               type="submit"
-              disabled={!formState.username || !formState.password}
+              role="button"
+              disabled={!isValidLoginData}
               className={s["login-button"]}
             >
               Login

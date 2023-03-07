@@ -1,8 +1,7 @@
 import LoginForm from "./components/LoginForm/LoginForm";
-import Router from "./routes";
 
 function App() {
-  return <Router />;
+  return <LoginForm />;
 }
 
 export default App;

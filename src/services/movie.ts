@@ -1,24 +1,22 @@
 import { IMovie } from "../components/Movie/Movie";
+import { get } from "./api";
 
 export interface IMovieService {
   getLastMovie: () => Promise<IMovie>;
 }
 
+interface MovieResponse {
+  original_title: string;
+  overview: string;
+}
+
 async function getLastMovie() {
-  const response = await fetch(
-    "https://api.themoviedb.org/3/movie/latest?api_key=8a732f489f66fcfb6feee9839dc02d76"
-  );
+  const data = await get<MovieResponse>("movie/latest");
 
-  if (response.ok) {
-    const data = await response.json();
-
-    return {
-      title: data.original_title,
-      overview: data.overview,
-    };
-  }
-
-  throw Error("Request token api offline.");
+  return {
+    title: data?.original_title,
+    overview: data?.overview,
+  };
 }
 
 export const MovieService: IMovieService = {
